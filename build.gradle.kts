@@ -1,6 +1,7 @@
 import com.diffplug.gradle.spotless.SpotlessPlugin
 import com.vanniktech.maven.publish.SonatypeHost
 import java.net.URI
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
     java
@@ -8,6 +9,7 @@ plugins {
 
     id("com.diffplug.spotless") version "8.2.1"
     id("com.vanniktech.maven.publish") version "0.33.0"
+    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 repositories {
@@ -120,4 +122,8 @@ mavenPublishing {
 
         publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     }
+}
+
+tasks.named<ShadowJar>("shadowJar") {
+    relocate("com.intellectualsites.arkitektonika", "com.intellectualsites.arkitektonika.shadow")
 }
