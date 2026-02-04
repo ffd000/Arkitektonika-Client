@@ -91,8 +91,8 @@ public class Arkitektonika {
      * @param file Schematic File
      * @return Future that completes with the generated keys
      */
-    @NotNull public CompletableFuture<SchematicKeys> upload(@NotNull final File file) {
-        return this.client.upload(file, this.executorService);
+    @NotNull public CompletableFuture<SchematicKeys> upload(@NotNull final File file, final String uuid) {
+        return this.client.upload(file, uuid, this.executorService);
     }
 
     /**

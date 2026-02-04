@@ -77,10 +77,10 @@ public final class ApiClient implements com.intellectualsites.arkitektonika.ApiC
         }, service);
     }
 
-    @NotNull @Override public CompletableFuture<SchematicKeys> upload(@NotNull final File file,
+    @NotNull @Override public CompletableFuture<SchematicKeys> upload(@NotNull final File file, final String uuid,
         @NotNull final ExecutorService service) {
         return CompletableFuture.supplyAsync(() -> {
-           final HttpResponse response = httpClient.post("/upload").withInput(() -> file)
+           final HttpResponse response = httpClient.post("/upload").withHeader("X-UUID", uuid).withInput(() -> file)
                .onStatus(400, httpResponse -> {
                     throw new InvalidFormatException("/upload", 400, httpResponse.getStatus());
                 })
