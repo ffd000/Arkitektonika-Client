@@ -1,15 +1,12 @@
 import com.diffplug.gradle.spotless.SpotlessPlugin
 import com.vanniktech.maven.publish.SonatypeHost
 import java.net.URI
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
 plugins {
     java
-    signing
 
     id("com.diffplug.spotless") version "8.2.1"
     id("com.vanniktech.maven.publish") version "0.33.0"
-    id("com.github.johnrengelman.shadow") version "8.1.1"
 }
 
 repositories {
@@ -38,7 +35,7 @@ configurations.all {
 }
 
 group = "com.intellectualsites.arkitektonika"
-version = "2.1.5-SNAPSHOT"
+version = "2.1.5-LOCAL"
 
 spotless {
     java {
@@ -61,21 +58,11 @@ tasks {
     }
 }
 
-signing {
-    if (!project.hasProperty("skip.signing") && !version.toString().endsWith("-SNAPSHOT")) {
-        val signingKey: String? by project
-        val signingPassword: String? by project
-        useInMemoryPgpKeys(signingKey, signingPassword)
-        signing.isRequired
-        sign(publishing.publications)
-    }
-}
-
 mavenPublishing {
     coordinates(
         groupId = "$group",
         artifactId = project.name,
-        version = "${project.version}",
+        version = "$version",
     )
 
     pom {
@@ -122,8 +109,4 @@ mavenPublishing {
 
         publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
     }
-}
-
-tasks.named<ShadowJar>("shadowJar") {
-    relocate("com.intellectualsites.arkitektonika", "com.intellectualsites.arkitektonika.shadow")
 }
