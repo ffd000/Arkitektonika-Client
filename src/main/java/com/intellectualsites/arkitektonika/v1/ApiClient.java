@@ -151,7 +151,7 @@ public final class ApiClient implements com.intellectualsites.arkitektonika.ApiC
                  final PrintWriter printWriter = new PrintWriter(new OutputStreamWriter(byteArrayOutputStream,
                      StandardCharsets.UTF_8), true)) {
                 printWriter.append("--").append(this.boundary).append("\r\n");
-                printWriter.append("Content-Disposition: form-data; name=\"schematic\"; filename=\"plot.schem\"\r\n");
+                printWriter.append("Content-Disposition: form-data; name=\"schematic\"; filename=\"" + file.getName() + "\"\r\n");
                 printWriter.append("Content-Type: application/octet-stream\r\n\r\n").flush();
                 Files.copy(file.toPath(), byteArrayOutputStream);
                 byteArrayOutputStream.flush();
