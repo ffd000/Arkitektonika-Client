@@ -59,7 +59,7 @@ public interface ApiClient {
      * @return Future that completes with the access and deletion keys of the
      * uploaded resource, or fails with an exception
      */
-    @NotNull CompletableFuture<SchematicKeys> upload(@NotNull final File file, final String uuid,
+    @NotNull CompletableFuture<SchematicKeys> upload(@NotNull final File file, final String schem_type, final String pos1, final String pos2, final String uuid,
         @NotNull final ExecutorService executorService);
 
     /**
